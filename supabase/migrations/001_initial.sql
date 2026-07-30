@@ -11,7 +11,7 @@ create table public.event_settings (
   event_status public.event_status not null default 'draft',
   submissions_open boolean not null default false,
   voting_open boolean not null default false,
-  results_visible boolean not null default true,
+  results_visible boolean not null default false,
   require_whitelist boolean not null default true,
   updated_at timestamptz not null default now(),
   updated_by uuid references auth.users(id)
@@ -61,7 +61,6 @@ create table public.nickname_suggestions (
 );
 alter table public.people add constraint people_finalized_nickname_fk foreign key (finalized_nickname_id) references public.nickname_suggestions(id);
 create unique index nickname_unique_per_person on public.nickname_suggestions(person_id, normalized_nickname) where deleted_at is null;
-create unique index nickname_one_per_user_person on public.nickname_suggestions(person_id, submitted_by) where deleted_at is null;
 
 create table public.votes (
   id uuid primary key default gen_random_uuid(),
@@ -185,7 +184,6 @@ begin
   if not cfg.submissions_open then raise exception 'Nickname submissions are closed'; end if;
   if exists(select 1 from public.people where id=_person_id and finalized_nickname_id is not null) then raise exception 'This person already has a final nickname'; end if;
   clean:=regexp_replace(trim(_nickname),'\s+',' ','g'); if char_length(clean) not between 1 and 60 then raise exception 'Nickname must be 1 to 60 characters'; end if;
-  if exists(select 1 from public.nickname_suggestions where person_id=_person_id and submitted_by=p.id and deleted_at is null) then raise exception 'You already submitted a nickname for this person'; end if;
   insert into public.nickname_suggestions(person_id,nickname,submitted_by) values(_person_id,clean,p.id) returning id into new_id;
   perform public.write_audit('nickname.submitted','nickname',new_id,_person_id,null,jsonb_build_object('nickname',clean,'status','approved'),_ip,_user_agent,_request_id);
   return new_id;

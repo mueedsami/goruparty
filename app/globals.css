@@ -39,7 +39,7 @@ main { padding:32px 0 64px; }
 .detail-head { display:flex; gap:18px; align-items:center; margin-bottom:24px; }
 .two-column { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(280px,.7fr); gap:18px; align-items:start; }
 .nickname-list { display:grid; gap:12px; }.nickname-row { display:flex; justify-content:space-between; align-items:center; gap:16px; }
-.nickname-main { display:grid; gap:5px; }.vote-count { font-weight:800; white-space:nowrap; }
+.nickname-main { display:grid; gap:5px; }
 .table-wrap { overflow:auto; background:white; border:1px solid var(--line); border-radius:14px; }
 table { width:100%; border-collapse:collapse; min-width:760px; } th,td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; } th { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); background:#fafbfc; }
 .admin-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }.admin-tabs a { padding:9px 12px; background:white; border:1px solid var(--line); border-radius:9px; }

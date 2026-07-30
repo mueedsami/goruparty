@@ -15,12 +15,13 @@ A minimal deployable nickname suggestion and voting system with Google-only auth
 - Optional approved-email whitelist
 - 114-person CSV import
 - Admin UI for participant/admin Google-email access
-- One nickname suggestion per user per person
+- Multiple distinct nickname suggestions per user per person
+- Vote totals hidden from participants; admins can still inspect vote records and counts
 - One active vote per user per person; vote change/removal supported
 - Admin-only visibility of nickname submitters and voters
 - Nickname approve/hide/delete and restore through approve
 - Manual final nickname selection
-- Event controls: submissions, voting and result visibility
+- Event controls: submissions and voting
 - Immutable database audit records with IP, browser, request ID, old/new values
 - Supabase's own authentication audit logs remain available separately
 
@@ -29,6 +30,12 @@ A minimal deployable nickname suggestion and voting system with Google-only auth
 Create a Supabase project, open **SQL Editor**, and run:
 
 `supabase/migrations/001_initial.sql`
+
+For an existing installation created with the earlier version, also run:
+
+`supabase/migrations/002_multiple_nicknames_hide_vote_counts.sql`
+
+The second migration removes the one-nickname-per-user restriction and permanently hides public vote totals.
 
 Before anyone logs in, seed at least one admin. After that, additional accounts can be imported from Admin → Access:
 

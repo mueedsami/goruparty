@@ -31,7 +31,7 @@ export function NicknameForm({ personId, disabled }: { personId: string; disable
     <form className="card form-stack" onSubmit={submit}>
       <div>
         <h2>Suggest a nickname</h2>
-        <p className="muted">One suggestion per person. Keep it respectful.</p>
+        <p className="muted">You may suggest multiple distinct nicknames. Keep them respectful.</p>
       </div>
       <input
         className="input"

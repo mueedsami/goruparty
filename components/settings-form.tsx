@@ -40,7 +40,7 @@ export function SettingsForm({ settings }: { settings: Record<string, unknown> }
       </label>
       <label className="check"><input type="checkbox" name="submissionsOpen" defaultChecked={Boolean(settings.submissions_open)} /> Nickname submissions open</label>
       <label className="check"><input type="checkbox" name="votingOpen" defaultChecked={Boolean(settings.voting_open)} /> Voting open</label>
-      <label className="check"><input type="checkbox" name="resultsVisible" defaultChecked={Boolean(settings.results_visible)} /> Show vote totals to users</label>
+      <label className="check"><input type="checkbox" name="resultsVisible" defaultChecked={Boolean(settings.results_visible)} /> Show vote totals to participants</label>
       <label className="check"><input type="checkbox" name="requireWhitelist" defaultChecked={Boolean(settings.require_whitelist)} /> Require approved email whitelist</label>
       <button className="button primary" disabled={loading}>{loading ? "Saving…" : "Save settings"}</button>
       {message && <p className="form-message">{message}</p>}
