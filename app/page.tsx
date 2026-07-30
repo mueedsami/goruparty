@@ -17,7 +17,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
     <section className="grid">{people.map((person: any) => <Link key={person.id} href={`/people/${person.id}`} className="card person-card">
       {person.photo_url ? <img className="avatar" src={person.photo_url} alt="" /> : <div className="avatar">{String(person.full_name).slice(0,1)}</div>}
       <div><h2>{person.full_name}</h2><p className="muted">{person.person_code}</p></div>
-      <div>{person.final_nickname ? <span className="badge">Final: {person.final_nickname}</span> : person.leading_nickname ? <span className="badge">Leading: {person.leading_nickname}</span> : <span className="muted">No nicknames yet</span>}</div>
+      {person.final_nickname ? <div><span className="badge">Final: {person.final_nickname}</span></div> : null}
       <p className="muted">{person.nickname_count} suggestions{settings?.results_visible ? ` · ${person.total_votes} votes` : ""}</p>
     </Link>)}</section>
   </div></main>;
