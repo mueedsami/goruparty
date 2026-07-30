@@ -1,0 +1,8 @@
+import { createClient } from "@/lib/supabase/server";
+import { AdminNicknameActions } from "@/components/admin-nickname-actions";
+import { FinalizeButton } from "@/components/finalize-button";
+export default async function AdminNicknamesPage() {
+  const supabase = await createClient();
+  const { data } = await supabase.from("nickname_suggestions").select("id,nickname,status,moderation_reason,created_at,person_id,submitted_by,people(full_name,person_code,finalized_nickname_id),profiles!nickname_suggestions_submitted_by_fkey(full_name,email),votes(count)").order("created_at", { ascending:false });
+  return <><div className="page-title"><div><h1>Nickname moderation</h1><p className="muted">Submitter identity is admin-only.</p></div></div><div className="table-wrap"><table><thead><tr><th>Person</th><th>Nickname</th><th>Submitted by</th><th>Votes</th><th>Status</th><th>Actions</th></tr></thead><tbody>{data?.map((n:any)=><tr key={n.id}><td>{n.people?.full_name}<br/><span className="muted">{n.people?.person_code}</span></td><td><strong>{n.nickname}</strong>{n.moderation_reason && <><br/><span className="muted">{n.moderation_reason}</span></>}</td><td>{n.profiles?.full_name || "—"}<br/><span className="muted">{n.profiles?.email}</span></td><td>{n.votes?.[0]?.count || 0}</td><td><span className={`badge ${n.status}`}>{n.status}</span></td><td><AdminNicknameActions id={n.id} status={n.status}/>{n.status === "approved" && n.people?.finalized_nickname_id !== n.id && <div style={{marginTop:8}}><FinalizeButton personId={n.person_id} nicknameId={n.id}/></div>}</td></tr>)}</tbody></table></div></>;
+}
