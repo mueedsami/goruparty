@@ -131,3 +131,11 @@ For login/session events, use both:
 ## Known MVP limitation
 
 The admin CSV parser is intentionally simple and expects commas only as separators. Names containing commas should be edited to remove the comma or imported directly through Supabase SQL. Photo upload storage is not included; use public image URLs or extend with Supabase Storage.
+
+## Admin result export
+
+After applying `supabase/migrations/003_admin_results_export.sql`, admins can open
+`/admin/nicknames` and click **Download results CSV**. The export contains active
+people, their ID, their highest-voted approved nickname, and the winning vote count.
+Ties are shown with ` | ` between the tied nicknames. Each export is recorded in the
+immutable audit log as `results.exported`.

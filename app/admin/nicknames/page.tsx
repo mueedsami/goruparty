@@ -85,6 +85,9 @@ export default async function AdminNicknamesPage() {
           <h1>Nickname moderation</h1>
           <p className="muted">Submitter identity is admin-only.</p>
         </div>
+        <a className="button primary" href="/api/admin/results/export">
+          Download results CSV
+        </a>
       </div>
 
       <div className="table-wrap">
